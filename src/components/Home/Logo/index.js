@@ -1,25 +1,44 @@
 import './index.scss'
-import LogoV from '../../../assets/images/Asset 1.png'
-import { useRef } from 'react';
+import LogoV from '../../../assets/images/logo-v5.png'
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap-trial';
+import { DrawSVGPlugin } from 'gsap-trial/dist/DrawSVGPlugin';
 
 
 const Logo = () => {
     const bgRef = useRef();
     const outlineLogoRef = useRef();
     const solidLogoRef = useRef();
+
+    useEffect(() => {
+      gsap.registerPlugin(DrawSVGPlugin)
+
+      gsap
+        .timeline()
+        .to(bgRef.current, {
+          duration: 1,
+          opacity: 1,
+        })
+        .from(outlineLogoRef.current, {
+          drawSVG: 0,
+          duration: 20,
+        })
+    }, [])
+
+
     return (
-      <div className="logo-container">
-        <img className="solid-logo" src={LogoV} alt="V" />
+      <div className="logo-container" ref={bgRef}>
+        <img ref={solidLogoRef} className="solid-logo" src={LogoV} alt="V" />
         <svg
-          width="559pt"
-          height="897pt"
+          width="700pt"
+          height="900pt"
           version="1.0"
-          viewBox="0 0 1100 500"
+          viewBox="-20 -900 1000 1400"
           xmlns="http://www.w3.org/2000/svg"
         >
           <g
             className="svg-container"
-            transform="translate(0 457) scale(.1 -.1)"
+            transform="translate(-50 420) scale(.1 -.1)"
             fill="none"
           >
             <path
@@ -33,6 +52,7 @@ const Logo = () => {
           </g>
         </svg>
       </div>
+      
     )
 }
 
